@@ -1,6 +1,5 @@
 package com.project.aistudy.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -14,7 +13,11 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOriginPattern("*");
+
+        // 허용할 오리진 추가
+        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("https://holden-frontend.vercel.app/");
+
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
