@@ -37,6 +37,7 @@ public class JwtFilter extends GenericFilterBean {
             return;
         }
 
+
         // 요청 헤더에서 JWT 토큰을 추출합니다.
         String jwt = resolveToken(httpServletRequest);
 
