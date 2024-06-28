@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -46,8 +45,6 @@ public class JwtTokenProvider implements InitializingBean {
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
-
-        System.out.println(authentication.getPrincipal());
 
         Long id = (Long) authentication.getPrincipal(); // Authentication 객체에서 id를 가져옵니다.
 
@@ -86,11 +83,11 @@ public class JwtTokenProvider implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        // User 객체를 생성합니다.
-        User principal = new User(claims.getSubject(), "", authorities);
+        // principal을 id(Long)로 설정합니다.
+        Long id = claims.get("id", Long.class);
 
         // UsernamePasswordAuthenticationToken 객체를 생성하여 반환합니다.
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        return new UsernamePasswordAuthenticationToken(id, token, authorities);
     }
 
     // 토큰의 유효성을 검사합니다.
