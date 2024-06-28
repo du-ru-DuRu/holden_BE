@@ -69,12 +69,12 @@ public class JwtTokenProvider implements InitializingBean {
                 .getBody();
 
         // 클레임에서 권한 정보를 추출합니다.
-        String authoritiesClaim = claims.get(AUTHORITIES_KEY).toString();
+        String authoritiesClaim = claims.get(AUTHORITIES_KEY, String.class);
         log.info("Authorities from token: {}", authoritiesClaim);
 
         // 권한 정보가 유효한지 확인합니다.
         if (authoritiesClaim == null || authoritiesClaim.isEmpty()) {
-            throw new IllegalArgumentException("권한 정보가 유효하지 않습니다.");
+            authoritiesClaim = "ROLE_USER"; // 기본 권한 설정
         }
 
         // 클레임에서 권한 정보를 추출하여 GrantedAuthority 객체로 변환합니다.

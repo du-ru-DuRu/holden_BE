@@ -19,6 +19,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -131,7 +133,11 @@ public class KakaoService {
 
     //jwt 토큰 생성
     public String jwtTokenGenerator(Long id, String kakaoId) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(id, kakaoId, new ArrayList<>());
+        // 기본 권한 부여
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(id, kakaoId, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         System.out.println(authentication);
 
