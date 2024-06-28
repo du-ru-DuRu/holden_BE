@@ -1,0 +1,6 @@
+.gradle/buildOutputCleanup
+.gradle/8.8/executionHistory
+.gradle/8.8/fileHashes
+build/tmp/compileJava
+logs/spring-boot-application.log
+
