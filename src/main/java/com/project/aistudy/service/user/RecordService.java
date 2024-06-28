@@ -19,6 +19,7 @@ public class RecordService {
     @Autowired
     private RecordRepository recordRepository;
 
+    @Autowired
     private MemberRepository memberRepository;
 
     public void createRecord(Long memberId, RecordRequestDto recordRequestDto) {
