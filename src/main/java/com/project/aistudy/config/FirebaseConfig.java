@@ -13,10 +13,12 @@ import java.util.List;
 @Configuration
 public class FirebaseConfig {
 
+
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
         List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
         FirebaseApp firebaseApp = null;
+
 
         if (firebaseApps != null && !firebaseApps.isEmpty()) {
             for (FirebaseApp app : firebaseApps) {
