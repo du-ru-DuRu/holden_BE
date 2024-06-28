@@ -47,6 +47,8 @@ public class JwtTokenProvider implements InitializingBean {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
+        System.out.println(authentication.getPrincipal());
+
         Long id = (Long) authentication.getPrincipal(); // Authentication 객체에서 id를 가져옵니다.
 
         long now = (new Date()).getTime();
