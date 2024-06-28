@@ -13,13 +13,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/record")
 public class RecordController {
 
     @Autowired
     private RecordService recordService;
 
-    @PostMapping
+    @PostMapping("/record")
     public ResponseEntity<String> createRecord(@RequestBody RecordRequestDto recordRequestDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String memberId = authentication.getName(); // JWT 토큰에서 추출된 사용자 ID
@@ -28,7 +27,7 @@ public class RecordController {
         return ResponseEntity.ok("Record created successfully");
     }
 
-    @GetMapping
+    @GetMapping("/record")
     public ResponseEntity<List<RecordResponseDto>> getRecords(@RequestParam LocalDate date) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String memberId = authentication.getName(); // JWT 토큰에서 추출된 사용자 ID
@@ -37,7 +36,7 @@ public class RecordController {
         return ResponseEntity.ok(records);
     }
 
-    @PostMapping("/stretching")
+    @PostMapping("/record/stretching")
     public ResponseEntity<String> stretchRecord(@RequestBody Boolean isStretching) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String memberId = authentication.getName();
