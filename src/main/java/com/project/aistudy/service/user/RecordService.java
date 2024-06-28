@@ -55,6 +55,8 @@ public class RecordService {
         memberRepository.save(member);
     }
 
+    private static final List<String> FOOD_LIST = List.of("제육볶음", "계란볶음밥", "족발", "비빔밥", "김치찌개");
+
     public List<QuizDto> generateQuiz(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
         List<Record> records = recordRepository.findByMember(member);
@@ -76,40 +78,76 @@ public class RecordService {
             Record record = selectedRecords.get(i);
             boolean isCorrect = (i == correctAnswerIndex);
             String quiz;
-            String correctActivity = getActivityQuestion(record);
+            String option1 = "";
+            String option2 = "";
+            String option3 = "";
+            String answer = "";
+            String rightAnswer = "";
 
-            if (isCorrect) {
-                quiz = correctActivity;
-                quizzes.add(new QuizDto(quiz, "O", correctActivity));
-            } else {
-                // 필드를 섞어서 잘못된 질문 생성
-                Record randomRecord = selectedRecords.get(random.nextInt(selectedRecords.size()));
-                String randomWhoIs = randomRecord.getWhoIs();
-                String randomWhereIs = randomRecord.getWhereIs();
-                String randomWhatIs = randomRecord.getWhatIs();
-                String randomCategory = randomRecord.getCategory();
-                String incorrectActivity;
-
-                if (record.getCategory().equals("아침") || record.getCategory().equals("점심") || record.getCategory().equals("저녁")) {
-                    incorrectActivity = String.format("나는 %s와 %s에서 %s를 %s에 먹었다.",
-                            randomWhoIs,
-                            randomWhereIs,
-                            randomWhatIs,
-                            randomCategory);
-                } else {
-                    incorrectActivity = String.format("나는 %s와 %s에서 %s를 했다.",
-                            randomWhoIs,
-                            randomWhereIs,
-                            randomWhatIs);
-                }
-
-                // 원본과 동일하다면 정답 퀴즈로 처리
-                if (incorrectActivity.equals(correctActivity)) {
-                    quizzes.add(new QuizDto(correctActivity, "O", correctActivity));
-                } else {
-                    quizzes.add(new QuizDto(incorrectActivity, "X", correctActivity));
-                }
+            switch (random.nextInt(3)) {
+                case 0:
+                    // 무엇을 먹었는지 묻는 문제
+                    if (record.getCategory().equals("아침") || record.getCategory().equals("점심") || record.getCategory().equals("저녁")) {
+                        quiz = String.format("나는 %s에 무엇을 먹었을까요?", record.getCategory());
+                        List<String> options = new ArrayList<>(FOOD_LIST);
+                        Collections.shuffle(options);
+                        option1 = options.get(0);
+                        option2 = options.get(1);
+                        option3 = options.get(2);
+                        rightAnswer = record.getWhatIs();
+                        if (isCorrect || (!options.contains(rightAnswer))) {
+                            answer = rightAnswer;
+                        } else {
+                            answer = options.get(3);
+                        }
+                    } else {
+                        i--; // 카테고리가 아침, 점심, 저녁이 아니면 다시 시도
+                        continue;
+                    }
+                    break;
+                case 1:
+                    // 기타 활동이면 어디서 혹은 무엇을 했는지 묻는 문제
+                    if (!record.getCategory().equals("아침") && !record.getCategory().equals("점심") && !record.getCategory().equals("저녁")) {
+                        quiz = String.format("나는 %s에서 무엇을 했을까요?", record.getWhereIs());
+                        List<String> activities = new ArrayList<>(List.of("산책", "운동", "독서", "공부"));
+                        Collections.shuffle(activities);
+                        option1 = activities.get(0);
+                        option2 = activities.get(1);
+                        option3 = activities.get(2);
+                        rightAnswer = record.getWhatIs();
+                        if (isCorrect || (!activities.contains(rightAnswer))) {
+                            answer = rightAnswer;
+                        } else {
+                            answer = activities.get(3);
+                        }
+                    } else {
+                        i--; // 기타 활동이 아니면 다시 시도
+                        continue;
+                    }
+                    break;
+                case 2:
+                    // 누구랑 했는지 묻는 문제
+                    quiz = String.format("나는 누구와 %s에서 활동했을까요?", record.getWhereIs());
+                    List<String> people = selectedRecords.stream()
+                            .map(Record::getWhoIs)
+                            .distinct()
+                            .collect(Collectors.toList());
+                    Collections.shuffle(people);
+                    option1 = people.get(0);
+                    option2 = people.get(1);
+                    option3 = people.get(2);
+                    rightAnswer = record.getWhoIs();
+                    if (isCorrect || (!people.contains(rightAnswer))) {
+                        answer = rightAnswer;
+                    } else {
+                        answer = people.get(3);
+                    }
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + random.nextInt(3));
             }
+
+            quizzes.add(new QuizDto(quiz, option1, option2, option3, answer, rightAnswer));
         }
         return quizzes;
     }
