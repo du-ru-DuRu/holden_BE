@@ -44,9 +44,8 @@ public class RecordService {
                 .collect(Collectors.toList());
     }
 
-    public void isStretching(String memberId) {
-        Long id = Long.parseLong(memberId);
-        Member member = memberRepository.findById(id).orElseThrow(() -> new RuntimeException("Member not found"));
+    public void isStretching(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
         Integer howMany = member.getStretching();
         member.setStretching(howMany);
         memberRepository.save(member);
