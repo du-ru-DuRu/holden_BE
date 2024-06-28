@@ -1,5 +1,4 @@
 package com.project.aistudy.service.user;
-
 import com.project.aistudy.dto.user.record.RecordRequestDto;
 import com.project.aistudy.dto.user.record.RecordResponseDto;
 import com.project.aistudy.entity.Member;
@@ -28,17 +27,18 @@ public class RecordService {
         Record record = new Record();
         record.setToday(recordRequestDto.getToday());
         record.setCategory(recordRequestDto.getCategory());
-        record.setWhat(recordRequestDto.getWhat());
-        record.setWho(recordRequestDto.getWho());
-        record.setWhere(recordRequestDto.getWhere());
-        record.setWhen(recordRequestDto.getWhen());
+        record.setWhatIs(recordRequestDto.getWhatIs());
+        record.setWhoIs(recordRequestDto.getWhoIs());
+        record.setWhereIs(recordRequestDto.getWhereIs());
+        record.setWhatTime(recordRequestDto.getWhatTime());
         record.setMember(member);
 
         recordRepository.save(record);
     }
 
     public List<RecordResponseDto> getRecords(Long memberId, LocalDate date) {
-        List<Record> records = recordRepository.findByMemberIdAndToday(memberId, date);
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
+        List<Record> records = recordRepository.findByMemberAndToday(member, date);
         return records.stream()
                 .map(record -> new RecordResponseDto(record))
                 .collect(Collectors.toList());
@@ -52,4 +52,3 @@ public class RecordService {
         memberRepository.save(member);
     }
 }
-
