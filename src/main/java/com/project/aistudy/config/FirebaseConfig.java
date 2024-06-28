@@ -8,20 +8,33 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @Configuration
 public class FirebaseConfig {
 
     @Bean
     public FirebaseApp initializeFirebase() throws IOException {
-        FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/holden-fcbe7-firebase-adminsdk-wwt0x-51580532f0.json");
+        List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
+        FirebaseApp firebaseApp = null;
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .build();
+        if (firebaseApps != null && !firebaseApps.isEmpty()) {
+            for (FirebaseApp app : firebaseApps) {
+                if (app.getName().equals(FirebaseApp.DEFAULT_APP_NAME)) {
+                    firebaseApp = app;
+                }
+            }
+        } else {
+            FileInputStream serviceAccount =
+                    new FileInputStream("src/main/resources/holden-fcbe7-firebase-adminsdk-wwt0x-51580532f0.json");
 
-        return FirebaseApp.initializeApp(options);
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
+
+            firebaseApp = FirebaseApp.initializeApp(options);
+        }
+
+        return firebaseApp;
     }
 }
-
