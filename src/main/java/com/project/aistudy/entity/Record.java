@@ -20,16 +20,17 @@ public class Record {
     private String category;
 
     @Column
-    private String what;
+    private String whatIs;
 
     @Column
-    private String who;
+    private String whoIs;
 
     @Column
-    private String where;
+    private String whereIs;
 
-    @Column(nullable = false)
-    private LocalTime when;
+    @Column
+    private LocalTime whatTime;
+
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
