@@ -80,6 +80,7 @@ public class KakaoService {
         if (member.isEmpty()) {
             member = Optional.of(signUp(profile));
         }
+        System.out.println(member.get().getKakaoId() +" "+ member.get().getMemberId());
 
         String token = jwtTokenGenerator(member.get().getMemberId(), member.get().getKakaoId());
         LoginResult loginResult = new LoginResult();
@@ -129,7 +130,9 @@ public class KakaoService {
 
     //jwt 토큰 생성
     public String jwtTokenGenerator(Long id, String kakaoId) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(id, kakaoId);
+        //id string으로 바꿔서 Authentication 생성
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(String.valueOf(id), String.valueOf(kakaoId));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtTokenProvider.createToken(authentication);
