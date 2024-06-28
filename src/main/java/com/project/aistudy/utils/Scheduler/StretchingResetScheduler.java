@@ -1,4 +1,4 @@
-package com.project.aistudy.utils;
+package com.project.aistudy.utils.Scheduler;
 
 import com.project.aistudy.entity.Member;
 import com.project.aistudy.repository.user.MemberRepository;

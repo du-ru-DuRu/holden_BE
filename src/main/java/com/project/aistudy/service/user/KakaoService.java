@@ -145,5 +145,11 @@ public class KakaoService {
 
         return "Bearer " + jwt;
     }
+
+    public void saveFireBaseToken(Long memberId, String token) {
+        Member member = kakaoRepository.findById(memberId).orElseThrow(() -> new RuntimeException("Member not found"));
+        member.setFireBaseToken(token);
+        kakaoRepository.save(member);
+    }
 }
 

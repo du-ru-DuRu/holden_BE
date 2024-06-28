@@ -24,6 +24,9 @@ public class Member {
     @Column(nullable = false)
     private Integer stretching;
 
+    @Column
+    private String fireBaseToken;
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Record> recodes;
 }
