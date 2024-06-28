@@ -121,6 +121,7 @@ public class KakaoService {
         newMember.setKakaoId(profile.getId());
         newMember.setNickname(profile.getProperties().getNickname());
         newMember.setProfileImage(profile.getProperties().getProfile_image());
+        newMember.setStretching(0);
         kakaoRepository.save(newMember);
 
         return newMember;
