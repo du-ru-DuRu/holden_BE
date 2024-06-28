@@ -6,7 +6,7 @@ import com.project.aistudy.dto.user.kakao.KaKaoOAuthToken;
 import com.project.aistudy.dto.user.kakao.OAuthProfile;
 import com.project.aistudy.dto.user.login.LoginResult;
 import com.project.aistudy.entity.Member;
-import com.project.aistudy.repository.user.KakaoRepository;
+import com.project.aistudy.repository.user.MemberRepository;
 import com.project.aistudy.utils.baseResponse.BaseException;
 import com.project.aistudy.utils.baseResponse.BaseResponseStatus;
 import com.project.aistudy.config.jwt.JwtTokenProvider;
@@ -33,7 +33,7 @@ import java.util.Optional;
 public class KakaoService {
 
     private final RestTemplate restTemplate;
-    private final KakaoRepository kakaoRepository;
+    private final MemberRepository kakaoRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Value("${kakao.client.id}")
@@ -121,6 +121,7 @@ public class KakaoService {
         newMember.setKakaoId(profile.getId());
         newMember.setNickname(profile.getProperties().getNickname());
         newMember.setProfileImage(profile.getProperties().getProfile_image());
+        newMember.setStretching(0);
         kakaoRepository.save(newMember);
 
         return newMember;
