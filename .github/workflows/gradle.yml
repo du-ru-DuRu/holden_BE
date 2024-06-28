@@ -68,5 +68,5 @@ jobs:
             sudo docker stop holden
             sudo docker rm holden
             sudo docker pull ${{ secrets.DOCKER_USERNAMEE }}/holden
-            sudo docker run -d -p 8080:8080 --name studyflex ${{ secrets.DOCKER_USERNAMEE }}/holden
+            sudo docker run -d -p 8080:8080 --name holden ${{ secrets.DOCKER_USERNAMEE }}/holden
             sudo docker image prune -f
