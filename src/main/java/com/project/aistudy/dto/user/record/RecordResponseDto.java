@@ -2,6 +2,7 @@ package com.project.aistudy.dto.user.record;
 
 import com.project.aistudy.entity.Record;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import lombok.Data;
 
 @Data
@@ -12,7 +13,7 @@ public class RecordResponseDto {
     private String what;
     private String who;
     private String where;
-    private String when;
+    private LocalTime when;
 
     // Constructor with Record entity
     public RecordResponseDto(Record record) {
