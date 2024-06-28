@@ -16,7 +16,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
-import java.security.Key;
 
 @Component
 @RequiredArgsConstructor
@@ -29,14 +28,12 @@ public class JwtFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
+        log.info("JwtFilter is invoked");
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
         //로그인이나 회원가인시에는 토큰 검증을 하지 않는다.
         String requestURI = httpServletRequest.getRequestURI();
-        if ("/user/kakao/callback".equals(requestURI)) {
-            filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        } else if("/user/kakao/token".equals(requestURI)) {
+        if ("/user/kakao/callback".equals(requestURI) || "/user/kakao/token".equals(requestURI)) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -69,6 +66,7 @@ public class JwtFilter extends GenericFilterBean {
     // 요청 헤더에서 토큰 정보를 꺼내오기 위한 메소드
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        log.info(bearerToken);
 
         // 토큰이 "Bearer "로 시작하는지 확인합니다.
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
@@ -77,5 +75,4 @@ public class JwtFilter extends GenericFilterBean {
 
         return null;
     }
-
 }
