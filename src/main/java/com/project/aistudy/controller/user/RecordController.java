@@ -2,6 +2,7 @@ package com.project.aistudy.controller.user;
 
 import com.project.aistudy.dto.user.record.RecordRequestDto;
 import com.project.aistudy.dto.user.record.RecordResponseDto;
+import com.project.aistudy.dto.user.record.StretchingDto;
 import com.project.aistudy.service.user.RecordService;
 import com.project.aistudy.utils.baseResponse.BaseResponse;
 import com.project.aistudy.utils.baseResponse.BaseResponseStatus;
@@ -39,11 +40,13 @@ public class RecordController {
     }
 
     @PostMapping("/record/stretching")
-    public ResponseEntity<BaseResponse<String>> stretchRecord(@RequestBody Boolean isStretching) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long memberId = (Long) authentication.getPrincipal(); // JWT 토큰에서 추출된 사용자 ID
+    public ResponseEntity<BaseResponse<String>> stretchRecord(@RequestBody StretchingDto isStretching) {
+        if(isStretching.getIsStretching()==true) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Long memberId = (Long) authentication.getPrincipal(); // JWT 토큰에서 추출된 사용자 ID
 
-        recordService.isStretching(memberId);
+            recordService.isStretching(memberId);
+        }
         return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, "Stretching successfully"));
     }
 }
