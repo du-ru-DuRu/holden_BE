@@ -8,4 +8,5 @@ import lombok.Data;
 public class QuizDto {
     private String quiz;
     private String answer;
+    private String rightAnswer;
 }

@@ -80,7 +80,7 @@ public class RecordService {
 
             if (isCorrect) {
                 quiz = correctActivity;
-                quizzes.add(new QuizDto(quiz, "O"));
+                quizzes.add(new QuizDto(quiz, "O", correctActivity));
             } else {
                 // 필드를 섞어서 잘못된 질문 생성
                 Record randomRecord = selectedRecords.get(random.nextInt(selectedRecords.size()));
@@ -92,17 +92,23 @@ public class RecordService {
 
                 if (record.getCategory().equals("아침") || record.getCategory().equals("점심") || record.getCategory().equals("저녁")) {
                     incorrectActivity = String.format("나는 %s와 %s에서 %s를 %s에 먹었다.",
-                            randomWhoIs.equals(record.getWhoIs()) ? "다른 사람" : record.getWhoIs(),
-                            randomWhereIs.equals(record.getWhereIs()) ? "다른 장소" : record.getWhereIs(),
-                            randomWhatIs.equals(record.getWhatIs()) ? "다른 음식" : record.getWhatIs(),
-                            randomCategory.equals(record.getCategory()) ? "다른 시간" : record.getCategory());
+                            randomWhoIs,
+                            randomWhereIs,
+                            randomWhatIs,
+                            randomCategory);
                 } else {
                     incorrectActivity = String.format("나는 %s와 %s에서 %s를 했다.",
-                            randomWhoIs.equals(record.getWhoIs()) ? "다른 사람" : record.getWhoIs(),
-                            randomWhereIs.equals(record.getWhereIs()) ? "다른 장소" : record.getWhereIs(),
-                            randomWhatIs.equals(record.getWhatIs()) ? "다른 활동" : record.getWhatIs());
+                            randomWhoIs,
+                            randomWhereIs,
+                            randomWhatIs);
                 }
-                quizzes.add(new QuizDto(incorrectActivity, "X"));
+
+                // 원본과 동일하다면 정답 퀴즈로 처리
+                if (incorrectActivity.equals(correctActivity)) {
+                    quizzes.add(new QuizDto(correctActivity, "O", correctActivity));
+                } else {
+                    quizzes.add(new QuizDto(incorrectActivity, "X", correctActivity));
+                }
             }
         }
         return quizzes;

@@ -314,3 +314,40 @@ Caused by: java.io.FileNotFoundException: class path resource [com/project/aistu
 2024-06-29T01:50:03.256+09:00  INFO 59352 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2024-06-29T01:50:03.265+09:00  INFO 59352 --- [restartedMain] com.project.aistudy.AiStudyApplication   : Started AiStudyApplication in 1.003 seconds (process running for 9227.519)
 2024-06-29T01:50:03.266+09:00  INFO 59352 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-06-29T02:09:56.802+09:00  INFO 59352 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 3 class path changes (0 additions, 3 deletions, 0 modifications)
+2024-06-29T02:09:56.903+09:00  INFO 59352 --- [Thread-83] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-06-29T02:09:56.991+09:00  WARN 59352 --- [Thread-83] o.s.b.f.support.DisposableBeanAdapter    : Invocation of destroy method failed on bean with name 'inMemoryDatabaseShutdownExecutor': org.h2.jdbc.JdbcSQLNonTransientConnectionException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-224]
+2024-06-29T02:09:56.993+09:00  INFO 59352 --- [Thread-83] com.zaxxer.hikari.HikariDataSource       : HikariPool-20 - Shutdown initiated...
+2024-06-29T02:09:57.008+09:00  INFO 59352 --- [Thread-83] com.zaxxer.hikari.HikariDataSource       : HikariPool-20 - Shutdown completed.
+2024-06-29T02:09:57.973+09:00  INFO 59352 --- [restartedMain] com.project.aistudy.AiStudyApplication   : Starting AiStudyApplication using Java 17.0.8 with PID 59352 (/Users/kang-yeeun/Downloads/holden_BE/build/classes/java/main started by kang-yeeun in /Users/kang-yeeun/Downloads/holden_BE)
+2024-06-29T02:09:57.973+09:00 DEBUG 59352 --- [restartedMain] com.project.aistudy.AiStudyApplication   : Running with Spring Boot v3.3.1, Spring v6.1.10
+2024-06-29T02:09:57.973+09:00  INFO 59352 --- [restartedMain] com.project.aistudy.AiStudyApplication   : No active profile set, falling back to 1 default profile: "default"
+2024-06-29T02:09:58.215+09:00  INFO 59352 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-29T02:09:58.215+09:00  INFO 59352 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2024-06-29T02:09:58.220+09:00  INFO 59352 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.project.aistudy.repository.user.MemberRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2024-06-29T02:09:58.221+09:00  INFO 59352 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.project.aistudy.repository.user.RecordRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2024-06-29T02:09:58.221+09:00  INFO 59352 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 5 ms. Found 0 JDBC repository interfaces.
+2024-06-29T02:09:58.223+09:00  INFO 59352 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-06-29T02:09:58.223+09:00  INFO 59352 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-06-29T02:09:58.230+09:00  INFO 59352 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 2 JPA repository interfaces.
+2024-06-29T02:09:58.411+09:00  INFO 59352 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-06-29T02:09:58.411+09:00  INFO 59352 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-06-29T02:09:58.411+09:00  INFO 59352 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-06-29T02:09:58.419+09:00  INFO 59352 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-06-29T02:09:58.419+09:00  INFO 59352 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 444 ms
+2024-06-29T02:09:58.442+09:00  INFO 59352 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-21 - Starting...
+2024-06-29T02:09:58.443+09:00  INFO 59352 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-21 - Added connection conn210: url=jdbc:h2:mem:testdb user=SA
+2024-06-29T02:09:58.443+09:00  INFO 59352 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-21 - Start completed.
+2024-06-29T02:09:58.443+09:00  INFO 59352 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2024-06-29T02:09:58.473+09:00 DEBUG 59352 --- [restartedMain] c.project.aistudy.config.jwt.JwtFilter   : Filter 'jwtFilter' configured for use
+2024-06-29T02:09:58.490+09:00  INFO 59352 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-06-29T02:09:58.493+09:00  INFO 59352 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-06-29T02:09:58.499+09:00  INFO 59352 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-06-29T02:09:58.500+09:00  WARN 59352 --- [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-06-29T02:09:58.533+09:00  INFO 59352 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-06-29T02:09:58.535+09:00  INFO 59352 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-06-29T02:09:58.643+09:00  WARN 59352 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-06-29T02:09:58.988+09:00  INFO 59352 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-06-29T02:09:58.999+09:00  INFO 59352 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-06-29T02:09:59.003+09:00  INFO 59352 --- [restartedMain] com.project.aistudy.AiStudyApplication   : Started AiStudyApplication in 1.064 seconds (process running for 10423.272)
+2024-06-29T02:09:59.004+09:00  INFO 59352 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
