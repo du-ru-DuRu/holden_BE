@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Long> {
     List<Record> findByMemberAndToday(Member member, LocalDate today);
+    List<Record> findByMember(Member member);
 }

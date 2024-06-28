@@ -1,5 +1,6 @@
 package com.project.aistudy.controller.user;
 
+import com.project.aistudy.dto.user.record.QuizDto;
 import com.project.aistudy.dto.user.record.RecordRequestDto;
 import com.project.aistudy.dto.user.record.RecordResponseDto;
 import com.project.aistudy.dto.user.record.StretchingDto;
@@ -49,4 +50,14 @@ public class RecordController {
         }
         return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, "Stretching successfully"));
     }
+
+    @GetMapping("/record/quiz")
+    public ResponseEntity<BaseResponse<List<QuizDto>>> getQuiz() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long memberId = (Long) authentication.getPrincipal(); // JWT 토큰에서 추출된 사용자 ID
+
+        List<QuizDto> quizzes = recordService.generateQuiz(memberId);
+        return ResponseEntity.ok(new BaseResponse<>(BaseResponseStatus.SUCCESS, quizzes));
+    }
+
 }
