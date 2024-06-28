@@ -28,7 +28,6 @@ public class JwtFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
-        log.info("JwtFilter is invoked");
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
         //로그인이나 회원가인시에는 토큰 검증을 하지 않는다.
