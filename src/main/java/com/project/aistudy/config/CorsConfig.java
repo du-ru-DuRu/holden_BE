@@ -12,16 +12,14 @@ public class CorsConfig {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
 
-        // 허용할 오리진 추가
-        config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedOrigin("https://holden-frontend.vercel.app/");
+        config.setAllowCredentials(true); // 자격 증명 있는 요청 허용
+        config.addAllowedOriginPattern("*"); // 모든 오리진 허용
+        config.addAllowedHeader("*"); // 모든 헤더 허용
+        config.addAllowedMethod("*"); // 모든 HTTP 메서드 허용
 
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-
-        source.registerCorsConfiguration("/app/**", config);
+        source.registerCorsConfiguration("/**", config); // 모든 경로에 대해 CORS 설정 적용
         return new CorsFilter(source);
     }
 }
+
