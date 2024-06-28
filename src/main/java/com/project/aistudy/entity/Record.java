@@ -3,6 +3,7 @@ package com.project.aistudy.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -28,7 +29,7 @@ public class Record {
     private String where;
 
     @Column(nullable = false)
-    private String when;
+    private LocalTime when;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
