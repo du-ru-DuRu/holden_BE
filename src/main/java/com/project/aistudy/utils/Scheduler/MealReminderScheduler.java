@@ -17,7 +17,7 @@ public class MealReminderScheduler {
 
     @Autowired
     private FCMService fcmService;
-
+    @Scheduled(cron = "0 0 06 * * ?") //dummy
     @Scheduled(cron = "0 0 10 * * ?")  // 오전 10시에 실행
     @Scheduled(cron = "0 0 13 * * ?")  // 오후 1시에 실행
     @Scheduled(cron = "0 0 19 * * ?")  // 저녁 7시에 실행
