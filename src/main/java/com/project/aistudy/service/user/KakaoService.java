@@ -25,6 +25,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -131,8 +132,10 @@ public class KakaoService {
     //jwt 토큰 생성
     public String jwtTokenGenerator(Long id, String kakaoId) {
         //id string으로 바꿔서 Authentication 생성
+        String idToString = id.toString();
+        String kakaoIdToString = kakaoId.toString();
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(String.valueOf(id), String.valueOf(kakaoId));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(idToString, kakaoIdToString);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtTokenProvider.createToken(authentication);
